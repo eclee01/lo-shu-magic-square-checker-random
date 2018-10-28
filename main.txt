@@ -1,0 +1,87 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+int main()
+{
+    int square[3][3];
+    int num[9];
+    int x, sum = 0;
+    srand(time(0));
+    
+    std::cout << "Lo Shu Magic Square Checker!" << std::endl;
+    std::cout << "Randomly generating a square..." << std::endl;
+    
+    //input square
+    for (int row = 0; row < 3; row++)
+    {
+        for (int col = 0; col < 3; col++)
+        {
+            x = rand() % 9 + 1;
+            while (num[x] == 1)
+            {
+                x = rand() % 9 + 1;
+            }
+            num[x] = 1;
+            square[row][col] = x;
+            std::cout << square[row][col] << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+    //check if rows add to 15
+    for (int row = 0; row < 3; row++)
+    {
+        sum = 0;
+        for (int col = 0; col < 3; col++)
+        {
+            sum += square[row][col];
+        }
+        if (sum != 15)
+        {
+            std::cout << "This is not a Lo Shu magic square...";
+            std::cout << std::endl << "The magic is lost..";
+            return 0;
+        }
+    }
+    
+    //check if cols add to 15
+    for (int col = 0; col < 3; col++)
+    {
+        sum = 0;
+        for (int row = 0; row < 3; row++)
+        {
+            sum += square[row][col];
+        }
+        if (sum != 15)
+        {
+            std::cout << "This is not a Lo Shu magic square...";
+            std::cout << std::endl << "The magic is lost..";
+            return 0;
+        }
+    }
+    
+    //check if diagonals add to 15
+    for (int count = 0; count > 2; count++)
+    {
+        sum += square[count][count];
+    }
+    
+    if (sum != 15)
+    {
+        std::cout << "This is not a Lo Shu magic square...";
+        std::cout << std::endl << "The magic is lost..";
+        return 0;
+    }
+    
+    if (square[0][2] + square[1][1] + square[2][0] != 15)
+    {
+        std::cout << "This is not a Lo Shu magic square...";
+        std::cout << std::endl << "The magic is lost..";
+        return 0;
+    }
+    
+    
+    std::cout << "This is a Lo Shu magic square...!";
+    std::cout << std::endl << "The magic is found...";
+    return 0;
+}
